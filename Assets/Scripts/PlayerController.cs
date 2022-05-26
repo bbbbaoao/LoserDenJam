@@ -5,20 +5,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private CharacterMovement _movement;
+    private Vector2 _moveInput;
+    private void Awake()
     {
-        
+        _movement = GetComponent<CharacterMovement>();
+    }
+    public void OnMove(InputValue value)
+    {
+        _moveInput = value.Get<Vector2>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnFire(InputValue value)
     {
-        
+        _movement.ShootPlayer();
     }
 
-    public void OnAnimatorMove(InputValue value)
+    private void Update()
     {
-        
+        _movement.SetMoveInput(_moveInput);
     }
 }
