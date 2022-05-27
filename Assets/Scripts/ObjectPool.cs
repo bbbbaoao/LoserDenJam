@@ -20,4 +20,16 @@ public class ObjectPool : MonoBehaviour
             pooledObjects.Add(tmp);
         }
     }
+
+    public GameObject GetPooledObject()
+    {
+        for (int i = 0; i < amountToPool; i++)
+        {
+            if (!pooledObjects[i].activeInHierarchy)
+            {
+                return pooledObjects[i];
+            }
+        }
+        return null;
+    }
 }
