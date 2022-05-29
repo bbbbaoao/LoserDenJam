@@ -7,9 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterMovement _movement;
     private Vector2 _moveInput;
+    private bool _isShot;
+    private Shoot _shoot;
     private void Awake()
     {
         _movement = GetComponent<CharacterMovement>();
+        Physics.IgnoreLayerCollision(0, 3, true);
+        _shoot = GetComponent<Shoot>();
     }
     public void OnMove(InputValue value)
     {
@@ -18,7 +22,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
+        if (_isShot) return;
         _movement.ShootPlayer();
+        Physics.IgnoreLayerCollision(0, 3, false);
+        _shoot.OnObjectHit();
+        _isShot = true;
+
     }
 
     private void Update()

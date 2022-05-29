@@ -30,9 +30,18 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!_isShot)
-        _rb.angularVelocity = (_moveInput.x * transform.up + _moveInput.y * transform.right) * _turnSpeed;
+        if (!_isShot)
+        //_rb.angularVelocity = (_moveInput.x * transform.up + _moveInput.y * transform.right) * _turnSpeed;
+        {
+            Vector3 right = transform.right;
+            right.y = 0;
+            right.Normalize();
+            transform.rotation *= Quaternion.Euler((_moveInput.x * Vector3.up + _moveInput.y * right) * _turnSpeed * Time.deltaTime);
+        }
 
+        else
+        {
+        }
     }
 }
 
