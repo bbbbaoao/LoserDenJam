@@ -59,6 +59,7 @@ public class Shoot : MonoBehaviour
                 _helmetrb.constraints = RigidbodyConstraints.None;
                 _helmetrb.isKinematic = false;
                 _helmet.transform.SetParent(null);
+                _explosionEffect.SendEvent("Explosion");
                 break;
             case 1:
                 _bodyRigidbody.AddExplosionForce(_explosionForce, _explosionPos.position, _explosionRadius, _upwardMod);
@@ -66,13 +67,15 @@ public class Shoot : MonoBehaviour
                 _animator.SetBool("Flying", true);
                 _motorCyclerb.isKinematic=false;
                 _motorCyclerb.constraints = RigidbodyConstraints.None;
-                Physics.IgnoreCollision(_motorCycle.GetComponent<Collider>(), GetComponent<Collider>(), false);
+                Physics.IgnoreCollision(_motorCycle.GetComponent<Collider>(), GetComponent<Collider>(), false);        
+                _explosionEffect.SendEvent("Explosion");
                 break;
             case 2:
                 _body.SetActive(false);
                 _skull.SetActive(true);
                 _bodyRigidbody.AddExplosionForce(_explosionForce, _explosionPos.position, _explosionRadius, _upwardMod);
                 _motorCycle.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, _explosionPos.position, _explosionRadius, _upwardMod);
+                _explosionEffect.SendEvent("Explosion");
                 break;
             case 3:
                 _skull.SetActive(false);
@@ -83,7 +86,7 @@ public class Shoot : MonoBehaviour
                 return;
         }
         _hitIndex++;
-        //_explosionEffect.SendEvent("Explosion");
+
     }
 
     public void Reset()
