@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.Events;
 
 public class Shoot : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Shoot : MonoBehaviour
     private Animator _animator;
     private Rigidbody _bodyRigidbody;
     [SerializeField] private int _environmentLayer;
+    public UnityEvent OnDeath;
 
     private void Awake()
     {
@@ -81,6 +83,7 @@ public class Shoot : MonoBehaviour
                 _skull.SetActive(false);
                 _skullSeparate.SetActive(true);
                 _bodyRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                StartCoroutine(Dead());
                 break;
             default:
                 return;
@@ -89,18 +92,23 @@ public class Shoot : MonoBehaviour
 
     }
 
-    public void Reset()
-    {
-        _helmetrb.constraints = RigidbodyConstraints.FreezeAll;
+    //public void Reset()
+    //{
+        
+    //    _helmetrb.constraints = RigidbodyConstraints.FreezeAll;
+    //    _bodyRigidbody.constraints= RigidbodyConstraints.FreezePosition;
+    //    _helmetrb.useGravity = false;
+    //    _helmetrb.isKinematic = true;
+    //    _motorCyclerb.constraints = RigidbodyConstraints.FreezeAll;
+    //    _motorCyclerb.useGravity = false;
+    //    _motorCyclerb.isKinematic = true;
+    //    Physics.IgnoreCollision(_motorCycle.GetComponent<Collider>(), GetComponent<Collider>(), true);
+    //    Physics.IgnoreCollision(_helmet.GetComponent<Collider>(), GetComponent<Collider>(), true);
 
-        _helmetrb.useGravity = false;
-        _helmetrb.isKinematic = true;
-        _motorCyclerb.constraints = RigidbodyConstraints.FreezeAll;
-        _motorCyclerb.useGravity = false;
-        _motorCyclerb.isKinematic = true;
-        _animator = GetComponent<Animator>();
-        _bodyRigidbody = GetComponent<Rigidbody>();
-        Physics.IgnoreCollision(_motorCycle.GetComponent<Collider>(), GetComponent<Collider>(), true);
-        Physics.IgnoreCollision(_helmet.GetComponent<Collider>(), GetComponent<Collider>(), true);
+    //}
+    private IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(2f);
+        OnDeath.Invoke();
     }
 }

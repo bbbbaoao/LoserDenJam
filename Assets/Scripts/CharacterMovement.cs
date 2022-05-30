@@ -6,6 +6,7 @@ public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private float _shootingForce = 10f;
     [SerializeField] private float _turnSpeed;
+    [SerializeField] private PlayerStats _playerStats;
     private bool _isShot = false;
     private Rigidbody _rb;
     private Vector2 _moveInput;
@@ -25,7 +26,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _isShot = true;
         _rb.constraints = RigidbodyConstraints.None;
-        _rb.AddForce(transform.forward * _shootingForce, ForceMode.Impulse);
+        _rb.AddForce(transform.forward * _shootingForce * _playerStats.Strength, ForceMode.Impulse);
     }
 
     private void FixedUpdate()
