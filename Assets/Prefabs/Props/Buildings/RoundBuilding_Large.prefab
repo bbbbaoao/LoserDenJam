@@ -94,11 +94,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2245623774801616189, guid: 95e02ebf2aa11e14ca7217290301f636,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 60f8f9bab461dba4099d04b32859bec2, type: 2}
     - target: {fileID: 919132149155446097, guid: 95e02ebf2aa11e14ca7217290301f636,
         type: 3}
       propertyPath: m_Name
       value: building02_tall
       objectReference: {fileID: 0}
+    - target: {fileID: 3695666860197271449, guid: 95e02ebf2aa11e14ca7217290301f636,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 60f8f9bab461dba4099d04b32859bec2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95e02ebf2aa11e14ca7217290301f636, type: 3}
 --- !u!4 &2124870391962836155 stripped

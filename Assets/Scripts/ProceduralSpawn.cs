@@ -12,6 +12,7 @@ public class ProceduralSpawn : MonoBehaviour
     //spawn count is the list count
     [SerializeField] private int _spawnCount;
     [SerializeField] private GameObject _player;
+    [SerializeField] private float _yOffset;
     private GameObject[,] _levels;
     private List<GameObject> _horizontalLevels = new List<GameObject>();
     private List<GameObject> _verticalLevels = new List<GameObject>();
@@ -24,7 +25,7 @@ public class ProceduralSpawn : MonoBehaviour
         {
             for(int j = 0; j < _spawnCount * 2 + 1; j++)
             {
-                _levels[i, j] = GetRandomLevel(_player.transform.position + new Vector3(((i - _spawnCount) * _spawnOffset.x), 0, ((j- _spawnCount) * _spawnOffset.y)));
+                _levels[i, j] = GetRandomLevel(_player.transform.position + new Vector3(((i - _spawnCount) * _spawnOffset.x), _yOffset, ((j- _spawnCount) * _spawnOffset.y)));
             }
             //_horizontalLevels.Add(GetRandomLevel(_player.transform.position + new Vector3 ((i *_spawnOffset.x), 0, 0)));
             //_verticalLevels.Add(GetRandomLevel(_player.transform.position + new Vector3(0, 0,(i * _spawnOffset.y))));

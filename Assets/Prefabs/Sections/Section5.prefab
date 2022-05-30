@@ -272,6 +272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 7998735771328094817, guid: 37da7db590d280249b781bc5c88f4996,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ad85dfe2430c9944a67aabf28740c2d, type: 2}
     - target: {fileID: 7998735771328094818, guid: 37da7db590d280249b781bc5c88f4996,
         type: 3}
       propertyPath: m_Mesh
@@ -290,7 +295,7 @@ PrefabInstance:
     - target: {fileID: 7998735771328094823, guid: 37da7db590d280249b781bc5c88f4996,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 9523
+      value: 9529
       objectReference: {fileID: 0}
     - target: {fileID: 7998735771328094823, guid: 37da7db590d280249b781bc5c88f4996,
         type: 3}

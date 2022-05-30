@@ -26,7 +26,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _isShot = true;
         _rb.constraints = RigidbodyConstraints.None;
-        _rb.AddForce(transform.forward * _shootingForce * _playerStats.Strength, ForceMode.Impulse);
+        _rb.AddForce(transform.forward * _shootingForce * Mathf.Sqrt(_playerStats.Strength), ForceMode.Impulse);
     }
 
     private void FixedUpdate()
@@ -35,7 +35,7 @@ public class CharacterMovement : MonoBehaviour
         //_rb.angularVelocity = (_moveInput.x * transform.up + _moveInput.y * transform.right) * _turnSpeed;
         {
             Vector3 right = transform.right;
-            right.y = 0;
+            //right.y = 0;
             right.Normalize();
             transform.rotation *= Quaternion.Euler((_moveInput.x * Vector3.up + _moveInput.y * right) * _turnSpeed * Time.deltaTime);
         }

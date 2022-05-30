@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.Events;
+using TMPro;
 
 public class Shoot : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class Shoot : MonoBehaviour
     private Rigidbody _bodyRigidbody;
     [SerializeField] private int _environmentLayer;
     public UnityEvent OnDeath;
+
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _coinText;
+    [SerializeField] private TextMeshProUGUI _strengthText;
+    [SerializeField] private PlayerStats _playerStats;
+    private int _gainedCoin;
 
     private void Awake()
     {
@@ -52,6 +59,7 @@ public class Shoot : MonoBehaviour
         }
     }
 
+
     public void OnObjectHit()
     {
         switch(_hitIndex)
@@ -60,6 +68,7 @@ public class Shoot : MonoBehaviour
                 Physics.IgnoreCollision(_helmet.GetComponent<Collider>(), GetComponent<Collider>(), false);
                 _helmetrb.constraints = RigidbodyConstraints.None;
                 _helmetrb.isKinematic = false;
+                _helmetrb.useGravity = true;
                 _helmet.transform.SetParent(null);
                 _explosionEffect.SendEvent("Explosion");
                 break;
@@ -70,13 +79,14 @@ public class Shoot : MonoBehaviour
                 _motorCyclerb.isKinematic=false;
                 _motorCyclerb.constraints = RigidbodyConstraints.None;
                 Physics.IgnoreCollision(_motorCycle.GetComponent<Collider>(), GetComponent<Collider>(), false);        
+                _motorCyclerb.useGravity = true;
+                _motorCycle.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, _explosionPos.position, _explosionRadius, _upwardMod);
                 _explosionEffect.SendEvent("Explosion");
                 break;
             case 2:
                 _body.SetActive(false);
                 _skull.SetActive(true);
                 _bodyRigidbody.AddExplosionForce(_explosionForce, _explosionPos.position, _explosionRadius, _upwardMod);
-                _motorCycle.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, _explosionPos.position, _explosionRadius, _upwardMod);
                 _explosionEffect.SendEvent("Explosion");
                 break;
             case 3:
@@ -108,7 +118,24 @@ public class Shoot : MonoBehaviour
     //}
     private IEnumerator Dead()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
+        int score = (int)Vector3.Distance(gameObject.transform.position, Vector3.zero) * 100;
+        _scoreText.text = "score: " + score.ToString();
+        _gainedCoin = score / 10000 + score / 100000 * 10 + score / 300000 * 30;
+        _playerStats.Money += _gainedCoin;
+        _coinText.text = "coin: " + _playerStats.Money.ToString() + " (+ " + _gainedCoin.ToString() + ")";
+        _strengthText.text = _playerStats.Strength.ToString();
         OnDeath.Invoke();
+    }
+
+    public void AddCoin()
+    {
+        if (_playerStats.Money >= 100)
+        {
+            _playerStats.Money -= 100;
+            _coinText.text = "coin: " + _playerStats.Money.ToString() + " + " + _gainedCoin.ToString();
+            _playerStats.Strength += 1;
+            _strengthText.text = _playerStats.Strength.ToString();
+        }       
     }
 }
